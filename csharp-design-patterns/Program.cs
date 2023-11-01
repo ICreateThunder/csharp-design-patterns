@@ -1,4 +1,6 @@
-﻿using System;
+﻿using csharp_design_patterns.Business.Models;
+using csharp_design_patterns.Business.Strategies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,21 +12,27 @@ namespace csharp_design_patterns
     {
         static void Main(string[] args)
         {
-            /* [STRATERGY PATTERN]
+            /* [STRATEGY PATTERN]
              * 
              * Components:
              * 
-             * - Context     : Able to select which stratergy best suits at runtime
-             * - IStratergy  : Interface provides layws of abstraction between business logic and lower level implementation
-             * - Statergy    : Lower level implementation
+             * - Context     : Able to select which strategy best suits at runtime
+             * - IStrategy   : Interface provides layer of abstraction between business logic and lower level implementation
+             * - Stategy     : Lower level implementation
              *
              * Demonstration:
              * 
-             * - Context     : Program class (Main Function) | 
-             * - IStratergy  : 
-             * - Stratergy   : 
+             * - Context     : Order
+             * - IStrategy   : IInvoiceStrategy | InvoiceStrategy
+             * - Strategy    : FileInvoiceStrategy
              * 
              */
+
+            Item item = new Item("Website", "Development of website", (decimal)300.0, 1, ItemType.Technology);
+            ShippingDetails shipping = new ShippingDetails(CountryCode.UK);
+            Order order = new Order(0, new List<Item> { item }, shipping, new FileInvoiceStrategy());
+
+            order.Invoice();
         }
     }
 }
